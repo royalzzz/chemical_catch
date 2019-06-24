@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    sql-script-encoding: utf-8
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/lexicon?useUnicode=true&allowMultiQueries=true&characterEncoding=utf8&autoReconnect=true&verifyServerCertificate=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: dotdot
+    hikari:
+      connection-init-sql: SET NAMES utf8mb4
+    jpa:
+      hibernate:
+        ddl-auto: update
+      show-sql: true
+server:
+  port: 8181
