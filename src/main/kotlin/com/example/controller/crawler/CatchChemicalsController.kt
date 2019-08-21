@@ -12,6 +12,8 @@ class CatchChemicalsController {
     @Autowired
     lateinit var chemicalRepo: ChemicalRepo
 
+    val url = "http://www.hgmsds.com/getEhsDetails?type=ghs&casno="
+
     private val rootUrl = "https://www.chemicalbook.com/"
 
     @RequestMapping("catch")
