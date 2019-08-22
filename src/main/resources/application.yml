@@ -7,8 +7,8 @@ spring:
     password: dotdot
     hikari:
       connection-init-sql: SET NAMES utf8mb4
-    jpa:
-      hibernate:
-        ddl-auto: update
+  jpa:
+    hibernate:
+      ddl-auto: update
 server:
   port: 8181

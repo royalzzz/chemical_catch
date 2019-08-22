@@ -8,5 +8,5 @@ data class ChemicalCatalogOrigin(
         @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
         var id: Long = -1,
         var cas: String,
-        var result: String
+        @Lob @Column(columnDefinition = "text") var result: String
 )
