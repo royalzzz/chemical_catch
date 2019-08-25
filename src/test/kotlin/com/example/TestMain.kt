@@ -16,7 +16,8 @@ import java.lang.Thread.sleep
 @SpringBootTest
 class TestMain {
 
-    private val filepath = "E:\\code\\Java\\catch\\src\\test\\resources\\cas"
+    private val filepath = "C:\\Users\\Administrator\\IdeaProjects\\chemical_catch\\src\\test\\resources\\cas"
+    //private val filepath = "E:\\code\\Java\\catch\\src\\test\\resources\\cas"
     //    private val filepath = "/Users/royal/IdeaProjects/chemical_catch/src/test/resources/cas"
     @Autowired
     lateinit var chemicalCatalogOriginRepo: ChemicalCatalogOriginRepo
