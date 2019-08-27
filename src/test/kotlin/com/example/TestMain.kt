@@ -16,9 +16,9 @@ import java.lang.Thread.sleep
 @SpringBootTest
 class TestMain {
 
-    private val filepath = "C:\\Users\\Administrator\\IdeaProjects\\chemical_catch\\src\\test\\resources\\cas"
+    //private val filepath = "C:\\Users\\Administrator\\IdeaProjects\\chemical_catch\\src\\test\\resources\\cas"
     //private val filepath = "E:\\code\\Java\\catch\\src\\test\\resources\\cas"
-    //    private val filepath = "/Users/royal/IdeaProjects/chemical_catch/src/test/resources/cas"
+    private val filepath = "/Users/royal/IdeaProjects/chemical_catch/src/test/resources/cas"
     @Autowired
     lateinit var chemicalCatalogOriginRepo: ChemicalCatalogOriginRepo
 
@@ -29,10 +29,10 @@ class TestMain {
         val casList = text.readLines()
         var i = 0
         for (cas in casList) {
+            print("${++i} / ${casList.size}")
+            print("\t")
+            println(cas)
             if (cas.isNotEmpty()) {
-                print("${++i} / ${casList.size}")
-                print("\t")
-                println(cas)
                 getInfo(url, "ghs", cas)
 //                val time = ((Math.random() * 30 + 10) * 1000).toLong()
 //                println("sleep: $time ms")

@@ -35,12 +35,12 @@ object Kit {
     @Throws(Exception::class)
     fun postRequest(url: String, pairList: ArrayList<BasicNameValuePair>): String {
         val httpClient = HttpClients.createDefault()
-        val proxy = HttpHost("47.104.223.189", 16816, "http")
+        val proxy = HttpHost("47.104.182.149", 16816, "http")
         val requestConfig = RequestConfig.custom().setProxy(proxy).build()
         val httpPost = HttpPost(url)
 //        pairList.add(BasicNameValuePair("f", "plist"))
 //        pairList.add(BasicNameValuePair("type", "word"))
-        httpPost.addHeader("Cookie", "JSESSIONID=FC68F3795B7744F58AEE17C95B3BD241; Qs_lvt_56176=1566701705; Qs_pv_56176=1947671252255700700%2C754914658825798100%2C3628302513574993000%2C764950073246528500%2C1380783026688815600; Hm_lvt_f27a00454fe3332070be8b71a0c64602=1566701705; Hm_lpvt_f27a00454fe3332070be8b71a0c64602=1566708987; Hm_lvt_581f7711e663e3f8f681a6c26d63b804=1566701705; Hm_lpvt_581f7711e663e3f8f681a6c26d63b804=1566708987; mediav=%7B%22eid%22%3A%22105583%22%2C%22ep%22%3A%22%22%2C%22vid%22%3A%22F%23a%3AZ%25fL3%25%3Ai%5D5Yq%3Ffr%3A%22%2C%22ctn%22%3A%22%22%7D")
+        httpPost.addHeader("Cookie", "Qs_lvt_56176=1566448872%2C1566542838%2C1566785621%2C1566867925; Qs_pv_56176=1114001584193571600%2C3059331864525677600%2C958320994154887300%2C2410354792356996600%2C720203014476048000; Hm_lvt_f27a00454fe3332070be8b71a0c64602=1566448873,1566785622,1566867926; Hm_lvt_581f7711e663e3f8f681a6c26d63b804=1566448873,1566785622,1566867926; SESSION_LOGIN_USERNAME=15615125129; SESSION_LOGIN_PASSWORD=cd265e88a1d7aa9141f55560cf879b45; JSESSIONID=8E37BC006FE5F45FFDBE8B536DDA3BAB; mediav=%7B%22eid%22%3A%22105583%22%2C%22ep%22%3A%22%22%2C%22vid%22%3A%22LMRMfqzlwr%3A%5ESnFu0F%5Bc%22%2C%22ctn%22%3A%22%22%7D; Hm_lpvt_581f7711e663e3f8f681a6c26d63b804=1566869058; Hm_lpvt_f27a00454fe3332070be8b71a0c64602=1566869058")
         httpPost.entity = UrlEncodedFormEntity(pairList, Charset.defaultCharset())
         httpPost.config = requestConfig
         val response = httpClient.execute(httpPost)
