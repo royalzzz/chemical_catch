@@ -12,3 +12,5 @@ spring:
       ddl-auto: update
 server:
   port: 8181
+logging:
+  level: off
