@@ -4,6 +4,7 @@ import com.example.bean.ChemicalCatalogOrigin
 import com.example.repository.ChemicalCatalogOriginRepo
 import com.example.util.Browser.Companion.webClient
 import com.example.util.Escape
+import com.example.util.Kit.postContent
 import com.example.util.Kit.postRequest
 import com.example.util.Kit.transform
 import com.example.util.WebUtil
@@ -17,6 +18,7 @@ import net.minidev.json.JSONObject
 import net.minidev.json.parser.JSONParser
 import org.apache.commons.logging.LogFactory
 import org.apache.http.message.BasicNameValuePair
+import org.apache.tomcat.jni.Proc.wait
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
@@ -38,26 +40,59 @@ class TestMain {
 
     // 17853678882
     // 15615125129
-    val filePath = "/Users/royal/IdeaProjects/chemical_catch/src/test/resources/cas3000"
-    val rootPath = "/Users/royal/Downloads/cas/"
+    // val filePath = "/Users/royal/IdeaProjects/chemical_catch/src/test/resources/cas3000"
+    // val rootPath = "/Users/royal/Downloads/cas/"
+    val filePath = "E:\\code\\Java\\catch\\src\\test\\resources\\cas3000"
+    val rootPath = "E:\\库\\桌面\\cas\\"
+    val proxyIP = "47.105.127.2"
+    val proxyPort = 16818
+    val username = "15615125129"
+    val password = "Iphone521"
 
     @Test
     fun info() {
         // 15615125129
-        start()
+        val cookieStr = login()
+        if (cookieStr.isNotEmpty()) {
+            //A2034F0CC328E9DF15FDC5EE8BDE4E10
+            val sessionId = cookieStr.split(";")[0]
+            val jsessionId = sessionId.split("=")[1]
+            println(jsessionId)
+            start(jsessionId)
+        }
     }
 
-    fun start() {
-        val cookie1 = Cookie(".hgmsds.com", "Hm_lpvt_581f7711e663e3f8f681a6c26d63b804", "1569554233")
-        val cookie2 = Cookie(".hgmsds.com", "Hm_lpvt_f27a00454fe3332070be8b71a0c64602", "1569554233")
-        val cookie3 = Cookie(".hgmsds.com", "Hm_lvt_581f7711e663e3f8f681a6c26d63b804", "1569479662,1569553128")
-        val cookie4 = Cookie(".hgmsds.com", "Hm_lvt_f27a00454fe3332070be8b71a0c64602", "1569479662,1569553129")
-        val cookie5 = Cookie("www.hgmsds.com", "JSESSIONID", "B1E2A251DA2CAD6C3BD9D64B5D251F6B")
+    fun login(): String {
+        val pairList = ArrayList<BasicNameValuePair>()
+        pairList.add(BasicNameValuePair("username", username))
+        pairList.add(BasicNameValuePair("password", password))
+        val response = postRequest("http://www.hgmsds.com/hgLoginCheck", pairList, proxyIP, proxyPort)
+        response.allHeaders.forEach {
+            if (it.name == "Set-Cookie") {
+                return it.value
+            }
+        }
+        return ""
+    }
+
+    fun start(jsessionId: String) {
+        val cookie1 = Cookie(".hgmsds.com", "Hm_lpvt_581f7711e663e3f8f681a6c26d63b804", (Date().time / 1000).toString())
+        val cookie2 = Cookie(".hgmsds.com", "Hm_lpvt_f27a00454fe3332070be8b71a0c64602", (Date().time / 1000).toString())
+        val cookie3 = Cookie(".hgmsds.com", "Hm_lvt_581f7711e663e3f8f681a6c26d63b804", "1600946548087|1567491001,1569410532")
+        val cookie4 = Cookie(".hgmsds.com", "Hm_lvt_f27a00454fe3332070be8b71a0c64602", "1600946547954|1567491001,1569410532")
+        val cookie5 = Cookie("www.hgmsds.com", "JSESSIONID", jsessionId)
+
+        val cookie6 = Cookie(".hgmsds.com", "Qs_lvt_56176", (Date().time / 1000).toString())
+        val cookie7 = Cookie(".hgmsds.com", "Qs_pv_56176", "961877667308466800%2C1622712727564054300%2C2229648327691822300%2C1815303298012249900%2C3740016893519566000")
         webClient.cookieManager.addCookie(cookie1)
         webClient.cookieManager.addCookie(cookie2)
         webClient.cookieManager.addCookie(cookie3)
         webClient.cookieManager.addCookie(cookie4)
         webClient.cookieManager.addCookie(cookie5)
+        webClient.cookieManager.addCookie(cookie6)
+        webClient.cookieManager.addCookie(cookie7)
+        webClient.options.proxyConfig.proxyHost = proxyIP
+        webClient.options.proxyConfig.proxyPort = proxyPort
         webClient.waitForBackgroundJavaScript(5000)
         val cass = File(filePath).readLines()
         var i = 1
@@ -66,15 +101,16 @@ class TestMain {
                 getInfoByCas(cas)
                 println("hello, now progress is $i / ${cass.size}, $cas")
                 i++
+                sleep(10000)
+                println("wait for 10s...")
             }
         }
-
     }
 
     fun getInfoByCas(cas: String) {
         val pairList = ArrayList<BasicNameValuePair>()
         pairList.add(BasicNameValuePair("inputValue", cas))
-        val list = postRequest("http://www.hgmsds.com/showChemicalDetails", pairList)
+        val list = postContent("http://www.hgmsds.com/showChemicalDetails", pairList, proxyIP, proxyPort)
         val jsonList = org.json.JSONArray(list)
         if (jsonList.length() > 0) {
             val json = jsonList[0] as org.json.JSONObject

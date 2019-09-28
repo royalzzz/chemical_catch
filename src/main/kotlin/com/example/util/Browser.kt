@@ -13,8 +13,7 @@ class Browser {
             java.util.logging.Logger.getLogger("com.gargoylesoftware.htmlunit").level = (Level.OFF)
             java.util.logging.Logger.getLogger("org.apache.commons.httpclient").level = (Level.OFF)
             java.util.logging.Logger.getLogger("com.gargoylesoftware").setLevel(Level.OFF);
-            val webClient = WebClient(BrowserVersion.CHROME, "47.105.75.155", 16818)
-//        val webClient = WebClient(BrowserVersion.CHROME)
+            val webClient = WebClient(BrowserVersion.CHROME)
             webClient.options.isThrowExceptionOnFailingStatusCode = false
             webClient.options.isThrowExceptionOnScriptError = false
             webClient.options.printContentOnFailingStatusCode = false
