@@ -44,7 +44,7 @@ class TestMain {
     // val rootPath = "/Users/royal/Downloads/cas/"
     val filePath = "E:\\code\\Java\\catch\\src\\test\\resources\\cas3000"
     val rootPath = "E:\\库\\桌面\\cas\\"
-    val proxyIP = "47.105.127.2"
+    val proxyIP = "47.105.76.179"
     val proxyPort = 16818
     val username = "15615125129"
     val password = "Iphone521"
@@ -52,6 +52,9 @@ class TestMain {
     @Test
     fun info() {
         // 15615125129
+
+        // 一共 2685 个
+
         val cookieStr = login()
         if (cookieStr.isNotEmpty()) {
             //A2034F0CC328E9DF15FDC5EE8BDE4E10
@@ -93,7 +96,7 @@ class TestMain {
         webClient.cookieManager.addCookie(cookie7)
         webClient.options.proxyConfig.proxyHost = proxyIP
         webClient.options.proxyConfig.proxyPort = proxyPort
-        webClient.waitForBackgroundJavaScript(5000)
+        webClient.waitForBackgroundJavaScript(10000)
         val cass = File(filePath).readLines()
         var i = 1
         for (cas in cass) {
@@ -135,7 +138,7 @@ class TestMain {
     fun getGHSPage(cas: String, page: DomElement) {
         val btn = page as HtmlAnchor
         val ghs = btn.click<HtmlPage>()
-        sleep(5000)
+        webClient.waitForBackgroundJavaScript(10000)
         File("$rootPath$cas/ghs.html").writeText(ghs.asXml())
     }
 
@@ -143,7 +146,7 @@ class TestMain {
     fun getDANPage(cas: String, page: DomElement) {
         val btn = page as HtmlAnchor
         val ghs = btn.click<HtmlPage>()
-        sleep(5000)
+        webClient.waitForBackgroundJavaScript(10000)
         File("$rootPath$cas/dan.html").writeText(ghs.asXml())
     }
 
@@ -151,7 +154,7 @@ class TestMain {
     fun getGBZPage(cas: String, page: DomElement) {
         val btn = page as HtmlAnchor
         val ghs = btn.click<HtmlPage>()
-        sleep(5000)
+        webClient.waitForBackgroundJavaScript(10000)
         File("$rootPath$cas/gbz.html").writeText(ghs.asXml())
     }
 
@@ -159,7 +162,7 @@ class TestMain {
     fun getGUIDEPage(cas: String, page: DomElement) {
         val btn = page as HtmlAnchor
         val ghs = btn.click<HtmlPage>()
-        sleep(5000)
+        webClient.waitForBackgroundJavaScript(10000)
         File("$rootPath$cas/guide.html").writeText(ghs.asXml())
     }
 
@@ -167,7 +170,7 @@ class TestMain {
     fun getCCSPage(cas: String, page: DomElement) {
         val btn = page as HtmlAnchor
         val ghs = btn.click<HtmlPage>()
-        sleep(5000)
+        webClient.waitForBackgroundJavaScript(10000)
         File("$rootPath$cas/ccs.html").writeText(ghs.asXml())
     }
 
@@ -175,7 +178,7 @@ class TestMain {
     fun getICSPage(cas: String, page: DomElement) {
         val btn = page as HtmlAnchor
         val ghs = btn.click<HtmlPage>()
-        sleep(5000)
+        webClient.waitForBackgroundJavaScript(10000)
         File("$rootPath$cas/ics.html").writeText(ghs.asXml())
     }
 }
