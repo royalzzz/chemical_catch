@@ -40,10 +40,10 @@ class TestMain {
 
     // 17853678882
     // 15615125129
-    // val filePath = "/Users/royal/IdeaProjects/chemical_catch/src/test/resources/cas3000"
-    // val rootPath = "/Users/royal/Downloads/cas/"
-    val filePath = "E:\\code\\Java\\catch\\src\\test\\resources\\cas3000"
-    val rootPath = "E:\\库\\桌面\\cas\\"
+    val filePath = "/Users/royal/IdeaProjects/chemical_catch/src/test/resources/cas3000"
+    val rootPath = "/Users/royal/Downloads/cas/"
+    //val filePath = "E:\\code\\Java\\catch\\src\\test\\resources\\cas3000"
+    //val rootPath = "E:\\库\\桌面\\cas\\"
     val proxyIP = "47.105.76.179"
     val proxyPort = 16818
     val username = "15615125129"
@@ -55,14 +55,14 @@ class TestMain {
 
         // 一共 2685 个
 
-        val cookieStr = login()
-        if (cookieStr.isNotEmpty()) {
-            //A2034F0CC328E9DF15FDC5EE8BDE4E10
-            val sessionId = cookieStr.split(";")[0]
-            val jsessionId = sessionId.split("=")[1]
-            println(jsessionId)
-            start(jsessionId)
-        }
+//        val cookieStr = login()
+//        if (cookieStr.isNotEmpty()) {
+//            //A2034F0CC328E9DF15FDC5EE8BDE4E10
+//            val sessionId = cookieStr.split(";")[0]
+//            val jsessionId = sessionId.split("=")[1]
+//            println(jsessionId)
+//            start(jsessionId)
+//        }
     }
 
     fun login(): String {
@@ -114,7 +114,7 @@ class TestMain {
         val pairList = ArrayList<BasicNameValuePair>()
         pairList.add(BasicNameValuePair("inputValue", cas))
         val list = postContent("http://www.hgmsds.com/showChemicalDetails", pairList, proxyIP, proxyPort)
-        val jsonList = org.json.JSONArray(list)
+        val jsonList = JSONArray(list)
         if (jsonList.length() > 0) {
             val json = jsonList[0] as org.json.JSONObject
             val html = request("http://www.hgmsds.com/hg-ehs-index?decrypt=${json["id"]}")
